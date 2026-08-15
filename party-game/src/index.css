@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────────── */
+:root {
+  --bg-deep: #0f0a1e;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --glow-blue: rgba(96, 165, 250, 0.35);
+  --glow-pink: rgba(244, 114, 182, 0.35);
+  --glow-purple: rgba(167, 139, 250, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-deep);
+  color: #e2e8f0;
+}
+
+/* ─── Custom scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Glass card utility ────────────────────────────────────────── */
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-card-elevated {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 1.5rem;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 0.875rem;
+    transition: all 0.2s ease;
+  }
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(167, 139, 250, 0.5);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15),
+                0 0 20px rgba(167, 139, 250, 0.1);
+    outline: none;
+  }
+
+  .glass-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .glass-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .glass-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .neon-text {
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+}
+
+/* ─── Animated gradient background ──────────────────────────────── */
+.bg-animated-gradient {
+  background: linear-gradient(
+    135deg,
+    #0f0a1e 0%,
+    #1a1035 20%,
+    #0f0a1e 40%,
+    #15102a 60%,
+    #0f0a1e 80%,
+    #1a0d2e 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  25%      { background-position: 100% 0%; }
+  50%      { background-position: 100% 100%; }
+  75%      { background-position: 0% 100%; }
+}
+
+/* ─── Floating orbs ─────────────────────────────────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-blue {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+}
+.orb-pink {
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.12) 0%, transparent 70%);
+}
+.orb-purple {
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+}
+
+/* ─── Gradient text utility ─────────────────────────────────────── */
+.gradient-text-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 30%, #fde68a 50%, #f59e0b 70%, #fbbf24 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.gradient-text-hero {
+  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 35%, #60a5fa 65%, #a78bfa 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ─── Glow ring on focus ────────────────────────────────────────── */
+.ring-glow-blue {
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4), 0 0 20px rgba(96, 165, 250, 0.15);
+}
+.ring-glow-pink {
+  box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.4), 0 0 20px rgba(244, 114, 182, 0.15);
+}
+.ring-glow-purple {
+  box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.4), 0 0 20px rgba(167, 139, 250, 0.15);
+}
+
+/* ─── Noise texture overlay ─────────────────────────────────────── */
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
